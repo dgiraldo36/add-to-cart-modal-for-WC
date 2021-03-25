@@ -97,6 +97,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
     		return '';
     	}
 
+        error_log(print_r( $product->get_attributes(), true ) );
+
     	$product_name  = $product->get_name();
     	$product_price = $product->get_price();
     	$product_img   = $product->get_image();

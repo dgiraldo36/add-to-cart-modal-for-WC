@@ -21,6 +21,7 @@
 .atcw-modal .atcw-modal-content .product-item {
   display: flex;
   align-items: center;
+  margin-bottom: 30px;
 }
 
 .atcw-modal .atcw-modal-content .product-item > div {
