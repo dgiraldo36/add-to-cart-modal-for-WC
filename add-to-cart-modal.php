@@ -67,7 +67,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
     }
 
     function acmw_enqueue_scripts() {
-    	error_log('scripts');
     	wp_enqueue_style(
             'acmw-wc-styles',
             ACMW_WC_URL . '/assets/css/main.css',
@@ -96,8 +95,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
     	if ( ! $qty ) {
     		return '';
     	}
-
-        error_log(print_r( $product->get_attributes(), true ) );
 
     	$product_name  = $product->get_name();
     	$product_price = $product->get_price();
