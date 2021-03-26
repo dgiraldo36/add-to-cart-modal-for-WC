@@ -23,40 +23,40 @@ if ( ! defined( 'ABSPATH' ) ) {
  **/
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 
-	// Definitions.
-	define( 'ACMW_WC_VERSION', '1.0.0' );
-	define( 'ACMW_WC_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
-	define( 'ACMW_WC_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
+    // Definitions.
+    define( 'ACMW_WC_VERSION', '1.0.0' );
+    define( 'ACMW_WC_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
+    define( 'ACMW_WC_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
 
-	// Main filter.
+    // Main filter.
     add_action( 'woocommerce_add_to_cart', 'acmw_hooks' );
 
     function acmw_hooks() {
-    	add_filter('wc_add_to_cart_message_html', 'acmw_message_html', 10, 2);
-    	add_action('wp_enqueue_scripts', 'acmw_enqueue_scripts' );
+        add_filter('wc_add_to_cart_message_html', 'acmw_message_html', 10, 2);
+        add_action('wp_enqueue_scripts', 'acmw_enqueue_scripts' );
     }
 
-	/**
-	 *	Main function to generate modal window.
-	 *
-	 * @param mixed $message Default add to cart message.
-	 * @param int|array $products Product ID list or single product ID.
-	 *
-	 * @return mixed
-	 **/
+    /**
+     *    Main function to generate modal window.
+     *
+     * @param mixed $message Default add to cart message.
+     * @param int|array $products Product ID list or single product ID.
+     *
+     * @return mixed
+     **/
     function acmw_message_html( $message, $products ) {
-    	$body = '';
+        $body = '';
         foreach ( $products as $product_id => $qty ) {
-        	$product = wc_get_product( $product_id );
-        	if ( ! $product ) {
-        		continue;
-        	}
+            $product = wc_get_product( $product_id );
+            if ( ! $product ) {
+                continue;
+            }
 
-        	$body   .= acmw_product_template( $product, $qty);
+            $body   .= acmw_product_template( $product, $qty);
         }
 
         if ( ! $body ) {
-        	return $message;
+            return $message;
         }
 
         ob_start();
@@ -67,7 +67,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
     }
 
     function acmw_enqueue_scripts() {
-    	wp_enqueue_style(
+        wp_enqueue_style(
             'acmw-wc-styles',
             ACMW_WC_URL . '/assets/css/main.css',
             array(),
@@ -84,24 +84,24 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
     }
 
     /**
-	 *	Main function to generate modal window.
-	 *
-	 * @param int $product_id Single product ID added to the cart.
-	 * @param int $qty Product quantity added to the cart.
-	 *
-	 * @return mixed
-	 **/
+     *    Main function to generate modal window.
+     *
+     * @param int $product_id Single product ID added to the cart.
+     * @param int $qty Product quantity added to the cart.
+     *
+     * @return mixed
+     **/
     function acmw_product_template( $product, $qty ) {
-    	if ( ! $qty ) {
-    		return '';
-    	}
+        if ( ! $qty ) {
+            return '';
+        }
 
-    	$product_name  = $product->get_name();
-    	$product_price = $product->get_price();
-    	$product_img   = $product->get_image();
+        $product_name  = $product->get_name();
+        $product_price = $product->get_price();
+        $product_img   = $product->get_image();
 
-    	ob_start();
-    	include ACMW_WC_DIR . '/templates/product.tpl.php';
-    	return ob_get_clean();
+        ob_start();
+        include ACMW_WC_DIR . '/templates/product.tpl.php';
+        return ob_get_clean();
     }
 }
