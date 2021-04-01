@@ -3,10 +3,10 @@
         <?php echo $product_img; ?>
     </div>
     <div class="product-info">
-        <div>
-            <?php esc_html_e( 'Price', 'add-to-cart-modal' ); ?>: $ <?php echo esc_html( $product_price ); ?>
+        <div class="product-price">
+            <?php esc_html_e( 'Price', 'add-to-cart-modal' ); ?>: <span class="product-price-amount"> $<?php echo esc_html( $product_price ); ?></span>
         </div>
-        <div>
+        <div class="product-qty">
             <?php esc_html_e( 'Quantity' ); ?>: <?php echo esc_html( $qty ); ?>
         </div>
         <br>

@@ -1,4 +1,10 @@
 var atcw_wc_modal = document.getElementById("atcw-modal");
+var atcw_wc_modal_onload = atcw_wc_modal.getAttribute("data-onload");
+
+if (atcw_wc_modal_onload) {
+  var atcw_wc_onload_callback = window[atcw_wc_modal_onload];
+  if (typeof atcw_wc_onload_callback === "function") atcw_wc_onload_callback();
+}
 
 // Get the elements that closes the modal
 var atcw_wc_span = document.getElementsByClassName("atcw-close")[0];
@@ -29,4 +35,10 @@ function atcw_wc_modal_close() {
       "woocommerce-notices-wrapper"
     )[0].style.display = "none";
   }, 400);
+}
+
+function atcw_open_modal() {
+  atcw_wc_modal.classList.remove("ModalClosed");
+  atcw_wc_modal.classList.add("ModalOpen");
+  atcw_wc_modal.style.display = "block";
 }
